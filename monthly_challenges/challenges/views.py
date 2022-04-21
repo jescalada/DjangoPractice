@@ -19,12 +19,10 @@ months = {
 
 
 def index(request):
-    response_data = f"""
-        <ul>
-            {"".join([f'<li><a href="{reverse("month-challenge", args=[month])}">{month.capitalize()}</a></li>' for month in list(months.keys())])}
-        </ul>
-    """
-    return HttpResponse(response_data)
+    month_list = list(months.keys())
+    return render(request, "challenges/index.html", {
+        'months': month_list
+    })
 
 
 def monthly_challenge_by_number(request, month):
@@ -39,7 +37,7 @@ def monthly_challenge_by_number(request, month):
 def monthly_challenge(request, month):  # month is a keyword argument that got sent from the original path
     try:
         return render(request, 'challenges/challenge.html', {
-            'month': month.capitalize(),
+            'month': month,  # We don't capitalize it here because we restrict it to the core business logic
             'text': months[month],
         })
     except KeyError as e:
