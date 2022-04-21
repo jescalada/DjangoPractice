@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'challenges',  # the name in the apps.py, makes Django aware of our App
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +55,9 @@ ROOT_URLCONF = 'monthly_challenges.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+           # BASE_DIR / "challenges" / "templates"
+        ],  # You can add paths to directories you want Django to 'consider'
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,5 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
+from django.shortcuts import render
 
 # Create a connection using MongoClient. You can import MongoClient or use pymongo.MongoClient
 from pymongo import MongoClient
@@ -36,7 +38,10 @@ def monthly_challenge_by_number(request, month):
 
 def monthly_challenge(request, month):  # month is a keyword argument that got sent from the original path
     try:
-        return HttpResponse(months[month])
+        return render(request, 'challenges/challenge.html', {
+            'month': month.capitalize(),
+            'text': months[month],
+        })
     except KeyError as e:
         return HttpResponseNotFound(f'Invalid request: {e}')
 
